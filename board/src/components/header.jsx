@@ -12,6 +12,7 @@ const Header = styled.div`
   line-height: 150px;
   font-size: 45px;
   font-weight: 800;
+  font-family: 'Black Han Sans', sans-serif;
 `;
 
 const SubHeader = styled.div`

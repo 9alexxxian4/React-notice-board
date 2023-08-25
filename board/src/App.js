@@ -12,15 +12,28 @@ import UsuallyQuestion from "./pages/UsuallyQuestion";
 // import router
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+// import useState hook
+import { useState } from "react"; 
+
+
+
+
 
 function Board() {
+  const pageTitles = {
+    '/': '공지사항',
+    '/UsuallyQuestion': '자주 묻는 질문',
+    '/ManToManQuestion': '1:1 문의'
+  };
+
+  const [selectedPage, setSelectedPage] = useState('');
   return (
     <>
       <ResetCSS />
       <BrowserRouter>
         <Header />
-        <MoveToPage />
-        <WriteBtn />
+        <MoveToPage setSelectedPage={setSelectedPage} />
+        <WriteBtn pageTitles={pageTitles} selectedPage={selectedPage}/>
         <Routes>
           <Route path="/" element={<List/>}/>
           <Route path="/UsuallyQuestion" element={<UsuallyQuestion/>}/>
@@ -29,6 +42,6 @@ function Board() {
       </BrowserRouter>
     </>
   );
-}
+};
 
 export default Board; 

@@ -5,7 +5,8 @@ const BtnWrap = styled.div`
   width: 80%;
   margin: 0 auto;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 70px;
 `;
 
@@ -20,10 +21,21 @@ const Btn = styled.button`
   cursor: pointer;
 `;
 
-export default function writeBtn() {
+const P = styled.h1`
+  font-weight: 700;
+  font-size: 32px;
+`;
+
+export default function writeBtn({ pageTitles }) {
+  const location = window.location.pathname;
+  const pageTitle = pageTitles[location] || '';
+
   return (
-    <BtnWrap>
-      <Btn> 글 쓰기 </Btn>
-    </BtnWrap>
+    <>
+      <BtnWrap>
+        <P>{pageTitle}</P>
+        <Btn> 글 쓰기 </Btn>
+      </BtnWrap>
+    </>
   )
 }

@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 const Ul = styled.ul`
   width: 450px;
@@ -10,32 +11,47 @@ const Ul = styled.ul`
 `;
 
 const Li = styled.li`
-  width: calc(100%/3);
+  width: calc(100% / 3);
   float: left;
   margin: 0 auto;
   text-align: center;
   line-height: 50px;
 
-  &:hover {
-    font-weight: 700;
-  }
+  // class on 가지면 font-weight 바뀌는 것처럼 
+  font-weight: ${({ active }) => (active ? '800' : 'normal')};
 `;
 
+const menuItems = [
+  { to: '/', title: '공지사항' },
+  { to: '/UsuallyQuestion', title: '자주 묻는 질문' },
+  { to: '/ManToManQuestion', title: '1:1 문의' },
+];
 
-export default function moveToPage () {
+export default function MoveToPage({ setSelectedPage }) {
+  const [activeItem, setActiveItem] = useState('공지사항');
+
+  const handleLinkClick = (pageTitle) => {
+    setSelectedPage(pageTitle);
+    setActiveItem(pageTitle);
+  };
+
+  
   return (
     <Ul>
-      <Li>
-        <Link style={{color: '#000', textDecoration: 'none'}} to='/' >공지사항</Link>
-      </Li>
-      <Li>
-        <Link style={{color: '#000', textDecoration: 'none'}} to='/UsuallyQuestion' >자주 묻는 질문</Link>
-      </Li>
-      <Li>
-        <Link style={{color: '#000', textDecoration: 'none'}} to='/ManToManQuestion' >1:1 문의</Link>
-      </Li>
+      {menuItems.map((menuItem) => (
+        <Li
+          key={menuItem.to}
+          active={activeItem === menuItem.title}
+        >
+          <Link
+            style={{ color: '#000', textDecoration: 'none' }}
+            to={menuItem.to}
+            onClick={() => handleLinkClick(menuItem.title)}
+          >
+            {menuItem.title}
+          </Link>
+        </Li>
+      ))}
     </Ul>
-  )
-};
-
-
+  );
+}
